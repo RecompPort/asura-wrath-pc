@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/34928423/README.md)
+[README.md](https://github.com/user-attachments/files/35482627/README.md)
 <div align="center">
 
 # Asura's Wrath — native PC port
@@ -25,11 +25,29 @@ No emulator, no PS3 firmware, at the resolution and frame rate you choose.
 > **This repository contains nothing from the game.** That means no
 > executable, graphics, sounds or text, no official artwork, and no PS3 keys
 > or firmware. You build the port on your own machine from **your own copy**
-> of Asura's Wrath for PS3 (European, `BLES01227`).
+> of Asura's Wrath for PS3 (European, `BLES01227`, or US, `BLUS30721`).
 >
 > This is a fan project. It is not affiliated with Capcom, CyberConnect2 or
 > Sony Interactive Entertainment. Requests, links or files from the game are
 > not accepted in issues.
+
+## New in 1.1
+
+- **The US version works too** (`BLUS30721`), besides the European one. Same
+  program, one build: you pick which to play in the launcher.
+- **In-game options menu** (**F1**, or **SELECT + START** on a gamepad), with
+  **keyboard and gamepad remapping**.
+- **Mouse camera**, a **VSync** option and **mash QTEs that can be won at any
+  frame rate**.
+- **Redesigned launcher** with seven sections, save **export and import**, a
+  **low-end PC preset**, a **bug report** button and a new-version notice.
+- **Update and DLC from RPCS3 in one click** (*Extras → Add from RPCS3*).
+- **Smoother and faster:** chapter VI and later run much better, no more
+  periodic stutter, and the shader cache survives driver updates.
+
+All the details are in the
+[1.1 release notes](https://github.com/RecompPort/asura-port/releases/tag/v1.1)
+and in [CHANGELOG.md](CHANGELOG.md).
 
 ## What it is
 
@@ -52,12 +70,16 @@ It is not an emulator: the game's code runs directly on your CPU.
 - **Controls:** any gamepad SDL recognizes (Xbox, DualShock 4, DualSense,
   Switch Pro…) with rumble, or the keyboard. In-game button prompts can be
   PlayStation, Xbox, Switch, keyboard, or match the connected gamepad.
+- **Both versions:** European (`BLES01227`) and US (`BLUS30721`), with one
+  build.
 - **Content:** update 01.02 and the DLC, if you have them. They are read from
-  wherever they are, without copying.
+  wherever they are, without copying; what you installed in RPCS3 is found
+  automatically.
 - **Trophies**, with on-screen pop-ups and a list in the launcher.
-- **Save games**, with a backup button in the launcher.
-- **Launcher** in 7 languages: English, Spanish, German, Italian, French,
-  Japanese and Chinese. It works with mouse, keyboard or gamepad.
+- **Save games**, with export and import in the launcher (saves and trophies
+  in one `.zip`).
+- **Launcher** in 7 languages: English (the default), Spanish, German, Italian,
+  French, Japanese and Chinese. It works with mouse, keyboard or gamepad.
 - **Windows setup wizard** that does everything for you, and uninstalls like
   any other program.
 - **Audio without PS3 firmware:** the port decodes the game's MP3 music and
@@ -65,20 +87,23 @@ It is not an emulator: the game's code runs directly on your CPU.
 - **Low-end PC options:** resolution below the console's, console-sized
   shadows, and profile-guided optimization.
 
-## Status (1.0)
+## Status (1.1)
 
 | | Status |
 |---|---|
 | Windows 10 / 11 | **Playable.** This is the main platform. |
 | Linux | Experimental. It builds and runs, but needs more testers. |
 | Steam Deck | Experimental. It installs through distrobox; no performance testing yet. |
-| Main story | Playable. |
+| European version (`BLES01227`) | Playable. |
+| US version (`BLUS30721`) | Supported. It is the same program as the European one; new in 1.1, so less tested. |
 | Update 01.02 and DLC | Working, including their episodes and the full list of 53 trophies. |
 | 30 / 60 / 90 fps | Stable. |
 | 120 fps | Experimental. It can drop below 120 in the heaviest scenes. |
 
-On the test PC (4-core / 8-thread CPU, RTX 5060, 1080p), the heaviest fights
-run at 80–86 fps in 90 fps mode and at 113–118 fps in 120 fps mode.
+On the test PC (Ryzen 7 5700X, RTX 5060, 1080p) most of the game holds the
+chosen frame rate. In the hardest fights the game's own main thread sets the
+limit: the toughest fight of episode IV runs at 65–90 fps in 90 fps mode and at
+70–115 fps in 120 fps mode.
 
 ## Requirements
 
@@ -91,14 +116,25 @@ run at 80–86 fps in 90 fps mode and at 113–118 fps in 120 fps mode.
 
 **From your own copy of the game:**
 
-1. **Asura's Wrath, European version (`BLES01227`)**, as a `PS3_GAME`
-   folder or a **decrypted** ISO (made with 3k3y or PS3Dec). The raw
-   encrypted disc ISO won't work.
-2. **The decrypted `EBOOT.elf`.** The disc's `EBOOT.BIN` is encrypted, and the
-   port does not decrypt it: that would mean putting Sony keys in the
-   repository. The one from the disc or from update 01.02 works, since they
-   are the same program.
-3. **Optional:** update 01.02 and the DLC, already installed and decrypted.
+1. **Asura's Wrath, European (`BLES01227`) or US (`BLUS30721`)**, as a
+   `PS3_GAME` folder or a **decrypted** ISO (made with 3k3y or PS3Dec). The
+   raw encrypted disc ISO won't work.
+2. **The decrypted `EBOOT.elf` of that same version.** The disc's `EBOOT.BIN`
+   is encrypted, and the port does not decrypt it: that would mean putting
+   Sony keys in the repository. The one from the disc or from the update
+   works, since they are the same program.
+3. **Optional:** the update and the DLC of that same version, already
+   installed and decrypted. If you only have the PKG files, install them once
+   in RPCS3: the launcher shows the steps and then finds them by itself
+   (*Extras → Add from RPCS3*).
+
+**European or US?** Either one. Both executables carry the same program (only
+a few bytes of data differ: the title ID, the region and the build date), so
+one build of the port plays both. You choose which one to play by choosing
+the game in the launcher (*Disc* section). Each keeps its own
+`datos\<ID>\EBOOT.elf` and its own saves; trophies are the same list and are
+shared. The update and DLC must match the game: US ones only with the US
+game, European ones only with the European game.
 
 You need no emulator and no PS3 firmware.
 
@@ -106,10 +142,10 @@ You need no emulator and no PS3 firmware.
 
 ### Windows (recommended)
 
-1. Download **`AsurasWrath-PC-v1.0-Setup.exe`** from
+1. Download **`AsurasWrath-PC-v1.1-Setup.exe`** from
    [Releases](https://github.com/RecompPort/asura-port/releases/latest).
-2. Run it. It doesn't need administrator rights, and the wizard is in
-   English or Spanish depending on your Windows language. The installer is
+2. Run it. It doesn't need administrator rights. The wizard is in English
+   (an *Español* link on the first page switches it to Spanish). The installer is
    not signed: if Windows says "Windows protected your PC", choose *More info
    → Run anyway*. You can check it is the original against its sha256 in
    `SHA256SUMS.txt`.
@@ -131,11 +167,11 @@ trophies and settings are kept. The full guide, with troubleshooting, is in
 
 ### Linux and Steam Deck (experimental)
 
-Download **`AsurasWrath-PC-v1.0-Linux.tar.gz`** from
+Download **`AsurasWrath-PC-v1.1-Linux.tar.gz`** from
 [Releases](https://github.com/RecompPort/asura-port/releases/latest), then:
 
 ```sh
-tar xzf AsurasWrath-PC-v1.0-Linux.tar.gz && cd asuras-wrath-pc
+tar xzf AsurasWrath-PC-v1.1-Linux.tar.gz && cd asuras-wrath-pc
 ./instalar-linux.sh /path/to/PS3_GAME
 ./jugar.sh
 ```
@@ -144,12 +180,20 @@ The script builds with your system's tools: clang, cmake, ninja, Python 3.10+,
 SDL3 and zlib. If they're missing, as on the Steam Deck, it builds inside a
 distrobox container and leaves the system untouched. On the Steam Deck it
 also sets suitable defaults and creates an entry you can add to Steam for
-Game Mode. Step by step: [docs/LINUX.md](docs/LINUX.md) (in Spanish).
+Game Mode. Messages are in English (`--idioma es` for Spanish). Step by step:
+[docs/LINUX.md](docs/LINUX.md) (in Spanish).
 
 ## Settings and performance
 
-Everything is set in the launcher. On Linux, where there is no launcher, the
-settings go in `opciones.txt`.
+Everything is set in the launcher, or in game with the **port options menu**
+(**F1**, or **SELECT + START** on a gamepad). On Linux, where there is no
+launcher, the menu is the easiest way; all settings are also in
+`opciones.txt`.
+
+The launcher checks GitHub once a day for a newer release of the port and
+shows a button if there is one. It only asks for the latest public release
+of `RecompPort/asura-port` and sends nothing about you; turn it off with
+*Game → Check for new versions*.
 
 | Setting | Values |
 |---|---|
@@ -159,10 +203,15 @@ settings go in `opciones.txt`.
 | Letterbox | In cutscenes: as on the console, or removed. **F8** in game. |
 | Button prompts | PlayStation, Xbox, Switch, keyboard or automatic. |
 | Game language | English, Spanish, French, German, Italian or Japanese. |
+| VSync | Off (default), on, or adaptive. |
+| New shaders | *Balanced* (default: never makes a frame late), wait for them (no flicker) or don't wait. |
+| Mash QTEs | Winnable at your frame rate (default: each press counts as fps/30 presses), or at 30 fps like the console. Optional *hold to mash*. Stick QTEs (spin or shake) run at 30 fps while they last. |
+| Mute in background | Off (default) or on. |
 
 **If your PC struggles:**
 
-- Use 60 fps, an internal resolution of 1x or lower, and *console* shadows.
+- Press **Low-end PC preset** in the launcher's *Graphics* section, or use
+  60 fps, an internal resolution of 1x or lower, and *console* shadows.
 - **The first sessions are less smooth.** The game saves the SPU programs it
   uses, and the launcher translates them to native code the next time you
   press *Play*. The more you play, the smoother it gets.
@@ -181,29 +230,47 @@ keyboard:
 
 | Keyboard | PS3 | | Keyboard | PS3 |
 |---|---|---|---|---|
-| W A S D (Shift: walk) | left stick | | Q / E | L1 / R1 |
+| W A S D (Shift: half tilt) | left stick | | Q / E | L1 / R1 |
 | Arrow keys | right stick | | U / O | L2 / R2 |
 | K or Space / L / J / I | ✕ / ○ / □ / △ | | Z / M | L3 / R3 |
 | T F G H | D-pad | | Enter / Tab | START / SELECT |
 
+The keys and the gamepad buttons can be changed in game: **F1 → Keyboard
+controls** and **F1 → Gamepad buttons**.
+
+**Mouse:** click in the window and the mouse moves the camera (right
+stick); left button □, right button △, middle R3. Esc releases it (in
+fullscreen it is taken automatically). Sensitivity, inverted Y or turning it
+off are in the F1 menu; `raton_izq=` / `raton_der=` in `opciones.txt` change the
+buttons.
+
 | Key | What it does |
 |---|---|
+| F1, or SELECT + START | Port options menu |
 | F11 or Alt+Enter | Fullscreen |
 | F10 | Frame rate: 30 → 60 → 90 → 120 |
 | F8 | Toggle the cutscene letterbox |
 | F7 | Trophies earned |
+| Esc | Release the mouse |
 
 ## Known issues
 
-- **Only the European version (`BLES01227`) works**, from the disc or with
-  update 01.02. Other regions have a different executable. If you have one,
-  open an issue with the sha1 the installer shows, without any game files.
-- **120 fps is experimental.** In the heaviest scenes the graphics thread
-  doesn't always fit in 8.3 ms per frame.
+- **Only the European (`BLES01227`) and US (`BLUS30721`) versions work.**
+  Other versions (such as the Japanese one) haven't been checked. If you have
+  one, open an issue with the sha1 the installer shows, without any game files.
+  The US version is new in 1.1 and has had less testing than the European one.
+- **120 fps is experimental.** In the hardest fights the game's own main
+  thread doesn't always fit in 8.3 ms per frame: on a Ryzen 7 5700X, the
+  toughest fight of episode IV runs at 70–115 fps.
+- **The first time an effect appears**, its GPU program has to be compiled.
+  With *Balanced* (the default) the game never waits, but the effect may be
+  missing for a frame or two. With *Wait* nothing is ever missing, but the game
+  pauses for a moment (100–170 ms with an RTX 5060). After that it is cached.
 - **The first time you play each area** there may be some stutter, until its
   SPU programs are translated (see above).
 - **The installer is not signed**, so Windows SmartScreen warns about it.
-- **Linux and the Steam Deck** are new in 1.0 and have had little testing.
+- **Linux and the Steam Deck** have had little testing. Reports are very
+  welcome.
 
 If you find a bug, open an issue with the *Fallo* (bug) template and attach
 the `asura.log` from that session. See [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -222,7 +289,15 @@ No. It contains the game's code, so it isn't published, and sharing it isn't
 allowed here.
 
 **Do I need RPCS3?**
-No. You need no emulator of any kind, and no PS3 firmware.
+No, not to play: you need no emulator of any kind, and no PS3 firmware. The
+only case is the update and DLC if you have them as PKG files: those have to
+be installed once (RPCS3 does it with your licence), and the launcher then
+finds them by itself and shows you the steps.
+
+**Can I play the US and the European version?**
+Yes, both, with the same install. Choose the game in the launcher's *Disc*
+section; each version needs its own decrypted `EBOOT.elf`, keeps its own saves
+and uses update and DLC of its own region only.
 
 **Why OpenGL and not Vulkan?**
 OpenGL 4.5 was the most direct way to translate the RSX. Vulkan is on the
@@ -266,7 +341,7 @@ window. The release packages are made by `tools/instalador/compilar.sh`.
   function map, firmware function names (by NID) and native UnrealScript
   function names, and the SPU programs.
 - **Recompiler** (`tools/recomp/`) turns PowerPC64 + VMX into C++, with
-  registers kept as local variables (version 4). It is tested instruction by
+  registers kept as local variables. It is tested instruction by
   instruction against `qemu-ppc64` (`tools/pruebas/`).
 - **Runtime** (`runtime/`) is the PS3 the game sees:
   - memory, threads and LV2;
